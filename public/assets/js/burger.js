@@ -8,15 +8,17 @@ $(function() {
 			devoured: 0
 		};
 
+		//Sending the POST request to add a new burger
 		$.ajax('/api/burgers', {
 			type: 'POST',
 			data: newBurger
 		}).then(function() {
 			console.log('Added New Burger');
-			location.reload();
+			location.reload(); //reload the page to get the updated list
 		});
 	});
 
+	//Sending the PUT request to update a burger from active to devoured
 	$('.eatburger').on('click', function(event) {
 		event.preventDefault();
 
@@ -34,6 +36,7 @@ $(function() {
 		});
 	});
 
+	//Sending the DELETE request to trash a burger and remove
 	$('.trashburger').on('click', function(event) {
 		event.preventDefault();
 
