@@ -1,4 +1,4 @@
-//Dependencies
+//Importing database connections
 var connection = require('./connect.js');
 
 var orm = {
