@@ -1,17 +1,20 @@
 <div class="container">
 
     <div class="jumbotron">
-        <h1> Let's Eat Some Burgers</h1>
-        <p>Make the Burgers. Then Eat the Burgers</p>
+        <h1>Welcome to</h1>
+        <h1>Eat-Da-Burger</h1>
+        <p>Order the Burgers. Then Eat the Burgers</p>
+        <br>
         <h2>Make Your Own Burger</h2>
         <panel>
             <form class="burger-form">
                 <div class="form-group">
-                    <label for="newBurger">Order A Fresh Burger</label>
+                    <label for="newBurger">Enter Your Burger Name to Order From the Chef</label>
+                    <br>
                     <input type="text" id="newBurger" name="burger">
                     <button type="submit" class="btn btn-danger" id="addBurger">
-                        <span class="fas fa-hamburger"></span>
-                     </button>
+                        <span class="fas fa-hamburger"></span> Send To The Chef
+                    </button>
                 </div>
             </form>
         </panel>
@@ -19,20 +22,18 @@
 
     <div class="row">
         <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading" id="leftSide"><strong>Order Your Burger</strong>
-                    <p>Send Your Order To The Chef When Ready!</p>
-                </div>
-                <div class="panel-body">
-
+            <div class="card">
+                <div class="card-heading" id="leftside"><strong>Burger Is Ready</strong></div>
+                <br>
+                <div class="card-body">
                     <ul>
                         {{#each burgers}}
                         {{#unless devoured}}
 
                         <span><strong> {{this.id}} - {{this.burger_name}}</strong></span>
                         <button type="button" class="eatburger btn btn-warning" id="eatbutton" data-id="{{this.id}}"
-                            data-newDevoured="{{devour}}"><span class="fas fa-usd"></span></button>
-                        
+                            data-newDevoured="{{devour}}"><span class="fas fa-teeth-open"></span>Devour It</button>
+
                         <hr>
                         {{/unless}}
                         {{/each}}
@@ -43,20 +44,24 @@
         </div>
 
         <div class="col-sm-6">
-            <div class="panel panel-default">
-                <div class="panel-heading" id="rightside"><strong>Burger is Ready</strong></div>
-                <div class="panel-body">
+            <div class="card">
+                <div class="card-heading" id="rightside"><strong>Devoured Burgers</strong></div>
+                <br>
+                <div class="card-body">
                     <ul>
                         {{#each burgers}}
                         {{#if devoured}}
                         <span><strong>{{this.id}}- {{this.burger_name}}</strong></span>
                         <button type="button" class="trashburger btn btn-danger" id="trashbutton" data-id="{{this.id}}"
-                            data-newDevoured="{{devour}}"><span class="fas fa-trash"></span></button>
-                        
+                            data-newDevoured="{{devour}}"><span class="fas fa-trash"></span>Trash It</button>
+
                         <hr>
                         {{/if}}
                         {{/each}}
                     </ul>
+
+
+
                 </div>
             </div>
         </div>
