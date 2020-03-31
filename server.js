@@ -7,9 +7,10 @@ var exphbs = require('express-handlebars');
 var app = express();
 
 //Set the port of the application
-var PORT = process.env.PORT || 8080;
+var PORT = process.env.PORT || 3000;
 
 app.use(express.static('public'));
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 

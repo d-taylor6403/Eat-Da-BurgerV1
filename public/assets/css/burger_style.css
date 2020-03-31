@@ -1,0 +1,26 @@
+.jumbotron {
+	background-image: url("../img/kissclipart-drawing-of-burger-clipart-hamburger-cheeseburger-d-c5c7d6403ebfb623.png");
+	background-repeat: no-repeat;
+	background-position: right;
+	background-color: #000000;
+	color: #000000;
+	margin-top: 3%;
+	border: solid 2px green;
+}
+
+#newburger {
+	color: #5c5c5c;
+}
+
+#leftside {
+	background-color: #e49322;
+	color: white;
+	text-align: center;
+	font-size: 1.3em;
+}
+#rightside {
+	background-color: #e49322;
+	color: white;
+	text-align: center;
+	font-size: 1.3em;
+}
