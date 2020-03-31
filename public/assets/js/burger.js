@@ -4,7 +4,7 @@ $(function() {
 		event.preventDefault();
 
 		var newBurger = {
-			burger_name: $('newBurger').val().trim(),
+			burger_name: $('#newBurger').val().trim(),
 			devoured: 0
 		};
 
@@ -36,7 +36,7 @@ $(function() {
 		});
 	});
 
-	//Sending the DELETE request to trash a burger and remove
+	//Sending the DELETE request to trash a burger and
 	$('.trashburger').on('click', function(event) {
 		event.preventDefault();
 

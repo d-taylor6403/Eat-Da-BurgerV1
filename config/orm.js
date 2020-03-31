@@ -1,56 +1,73 @@
 //Importing database connections
-var connection = require('./connect.js');
+var connection = require('../config/connection.js');
+
+function createQmarks(num) {
+	var arr = [];
+	for (var i = 0; i < num; i++) {
+		arr.push('?');
+	}
+	return arr.toString();
+}
+
+function translateSql(ob) {
+	var arr = [];
+	for (var key in ob) {
+		var value = ob[key];
+		if (Object.hasOwnProperty.call(ob, key)) {
+			if (typeof value === 'string' && value.indexOf(' ') >= 0) {
+				value = "'" + value + "'";
+			}
+			arr.push(key + '=' + value);
+		}
+	}
+	return arr.toString();
+}
 
 var orm = {
-    //Function to query all burgers in table
-    selectAll: function(cb) {
-        var dbQuery = "SELECT * FROM burgers";
-        connection.query(dbQuery, function(err, res) {
-            if (err) {
-                throw err;
-            }
-            cb(res);
-        });
-    },
+	selectAll: function(table, cb) {
+		var dbQuery = 'SELECT * FROM ' + table + ';';
 
-    //Function to insert a new entry into the table
-    insertOne: function(burger, cb) {
-        var dbQuery = "INSERT INTO burgers (burger_name) VALUES (?)";
+		connection.query(dbQuery, function(err, result) {
+			if (err) {
+				throw err;
+			}
+			cb(result);
+		});
+	},
+	insertOne: function(table, cols, vals, cb) {
+		var dbQuery =
+			'INSERT INTO ' + table + ' (' + cols.toString() + ') ' + 'VALUES (' + createQmarks(vals.length) + ') ';
 
-        connection.query(dbQuery, [burger], function (err, res) {
-            if (err) {
-                throw err;
-            }
-            cb(res);
-        });
-    },
+		console.log(dbQuery);
+		connection.query(dbQuery, vals, function(err, res) {
+			if (err) {
+				throw err;
+			}
+			cb(res);
+		});
+	},
+	updateOne: function(table, objColVals, condition, cb) {
+		var dbQuery = 'UPDATE ' + table + ' SET ' + translateSql(objColVals) + ' WHERE ' + condition;
 
-    //Function to update the burger to devoured flag when the devoured button is pressed.
-    updateOne: function(id, cb) {
-        var dbQuery = "UPDATE burgers SET devoured = true WHERE id = (?) ";
+		console.log(dbQuery);
+		connection.query(dbQuery, function(err, res) {
+			if (err) {
+				throw err;
+			}
+			cb(res);
+		});
+	},
+	deleteOne: function(table, condition, cb) {
+		var dbQuery = 'DELETE FROM ' + table + ' WHERE ' + condition;
 
-        connection.query(dbQuery, [id],function(err, res) {
-            if (err) {
-                throw err;
-            }
-            cb(res);
-        });
-        
-    },
-
-    //Function to delete an entry from the table
-    deleteOne: function(id, cb) {
-        var dbQuery = "DELETE FROM burgers WHERE id =(?)";
-
-        console.log(dbQuery);
-        connection.query(dbQuery, [id], function(err, res) {
-            if (err) {
-                throw err;
-            }
-            cb(res);
-        });
-    }
+		console.log(dbQuery);
+		connection.query(dbQuery, function(err, res) {
+			if (err) {
+				throw err;
+			}
+			cb(res);
+		});
+	}
 };
-
 
 module.exports = orm;
